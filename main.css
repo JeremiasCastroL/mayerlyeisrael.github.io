@@ -194,17 +194,23 @@
 
    .flower1 {
        position: absolute;
-       width: 150px;
+       width: 250px;
        right: 0;
        margin-top: 12px;
    }
 
-   .flower2 {
+   .flower2, .flower3 {
        position: absolute;
-       width: 150px;
+       width: 250px;
        left: 0;
        margin-bottom: 30px;
        transform: rotate(15deg);
+   }
+
+   .flower3 {
+             width: 170px;
+             margin-top: 40px;
+             margin-bottom: 0px;
    }
 
    .cloudbig {
@@ -649,7 +655,7 @@
        position: relative;
        width: 90%;
        max-width: 1000px;
-       height: 525px;
+       height: 550px;
        overflow: hidden;
        border-radius: 0px;
        cursor: grab;
