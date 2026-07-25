@@ -888,7 +888,6 @@
    }
 
    .slider2-dot.active {
-       width: 28px;
        border-radius: 10px;
        background-color: #3d3032;
    }
@@ -962,6 +961,10 @@
            padding: 10px 0px;
            padding-top: 25px;
            font-size: 27px;
+       }
+
+       .frase2 {
+        margin-top: 30px;
        }
 
        .img-ceremonia {
