@@ -4,24 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="./main.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./style.css">
+
     <title>Mayerly &amp; Israel</title>
     <meta name="description" content="Invitación de boda de Mayerly e Israel">
-    <link rel="icon" type="image/png" href="./imgs/enamorados1.png">
-
     <meta name="theme-color" content="#f7eef0">
+    <link rel="icon" type="image/png" href="./imgs/enamorados1.png">
 </head>
 
-<body>
+<body class="sobre-bloqueado">
     <main class="pagina">
+        <div class="contenido-invitacion" id="contenidoInvitacion" aria-hidden="true">
         <img class="img-main img-1" src="./imgs/enamorados1.png" alt="MDN" />
         <header class="hero">
             <div class="hero-contenido">
@@ -79,8 +80,8 @@
             </div>
         </section>
 
-        <img class="flower1" src="./imgs/floresleft1.png" />
-
+<!--         <img class="flower1" src="./imgs/floresleft1.png" />
+ -->
         <section class="seccion rosa">
             <img class="img-main img-ceremonia" src="./imgs/autobusblack.png" alt="MDN" />
 
@@ -170,16 +171,8 @@
             </div>
         </section>
 
-
-
-        </section>
-
-
-
-
-        
-        <img class="flower2 flower4" src="./imgs/floresright4.png" />
-        <img class="foto-ancha" src="./imgs/manos2.png" alt="Nerea y Paula">
+<!--         <img class="flower2 flower4" src="./imgs/floresright4.png" />
+ -->        <img class="foto-ancha" src="./imgs/manos2.png" alt="Mayerly e Israel">
 
 
         <section class="seccion seccion-1">
@@ -226,7 +219,6 @@
 
             </div>
         </section>
-        </section>
 
         <section class="seccion rosa">
             <img class="img-main img-ceremonia" src="./imgs/recuerdoblack.png" alt="MDN" />
@@ -261,7 +253,7 @@
         </section>
 
 
-        <section class="seccion">
+        <section class="seccion seccion-regalo">
             <img class="img-main img-ceremonia asistencia-text" src="./imgs/regaloblack.png" alt="MDN" />
 
             <div class="content-tarjeta cont-gift">
@@ -284,8 +276,8 @@
                                     <h3 id="text-pichincha">
                                         2206236571
                                     </h3>
-                                    <svg onclick="copiarTexto1()" width="20px" height="22px" viewBox="0 0 15 15" fill="#cb717e"
-                                        xmlns="http://www.w3.org/2000/svg" class="animate-lightpulse">
+                                    <svg onclick="copiarTexto1()" width="20px" height="22px" viewBox="0 0 15 15"
+                                        fill="#cb717e" xmlns="http://www.w3.org/2000/svg" class="animate-lightpulse">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
                                         </g>
@@ -306,8 +298,8 @@
                                     <h3 id="text-guayaquil">
                                         0023455221
                                     </h3>
-                                    <svg onclick="copiarTexto2()" width="20px" height="22px" viewBox="0 0 15 15" fill="#cb717e"
-                                        xmlns="http://www.w3.org/2000/svg" class="animate-lightpulse">
+                                    <svg onclick="copiarTexto2()" width="20px" height="22px" viewBox="0 0 15 15"
+                                        fill="#cb717e" xmlns="http://www.w3.org/2000/svg" class="animate-lightpulse">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
                                         </g>
@@ -331,33 +323,71 @@
         <section class="seccion">
             <img class="img-main img-ceremonia" src="./imgs/nosvemosblack2.png" alt="MDN" />
             <div class="content-tarjeta">
+                <section class="frase">
+                    <img src="./imgs/cloudbig3.png" class="cloudbig">
+                    <div class="contador" id="contador">
+                        <div>
+                            <strong id="dias">0</strong>
+                            <span>Días</span>
+                        </div>
+                        <div>
+                            <strong id="horas">0</strong>
+                            <span>Horas</span>
+                        </div>
+                        <div>
+                            <strong id="minutos">0</strong>
+                            <span>Mins</span>
+                        </div>
+                        <div>
+                            <strong id="segundos">0</strong>
+                            <span>Segs</span>
+                        </div>
+                    </div>
+                </section>
                 <!--                 <img src="./imgs/cloudpink3.png" class="cloudpink">
  -->
-                <div class="contador" id="contador">
-                    <div>
-                        <strong id="dias">0</strong>
-                        <span>Días</span>
-                    </div>
-                    <div>
-                        <strong id="horas">0</strong>
-                        <span>Horas</span>
-                    </div>
-                    <div>
-                        <strong id="minutos">0</strong>
-                        <span>Mins</span>
-                    </div>
-                    <div>
-                        <strong id="segundos">0</strong>
-                        <span>Segs</span>
-                    </div>
-                </div>
             </div>
             <img class="divisor" src="./imgs/divisor.png" />
         </section>
-
-
-
+        </div>
     </main>
+
+    <!-- Portada fija del sobre. No forma parte del flujo de la invitación,
+         así que al desaparecer no mueve el contenido en computadora. -->
+    <div class="boda-sobre" id="bodaSobre" aria-label="Sobre de invitación">
+        <div class="sobre-fondo-blanco" aria-hidden="true"></div>
+
+        <section class="boda-superior">
+            <div class="boda-tapa">
+                <div class="boda-nombres">
+                    <span>Mayerly</span>
+                    <span class="boda-signo">&amp;</span>
+                    <span>Israel</span>
+                </div>
+            </div>
+
+            <button
+                class="boda-sello"
+                id="bodaSello"
+                type="button"
+                aria-label="Abrir invitación"
+                aria-expanded="false"
+            >
+                <img class="img-sello" src="./imgs/buttonmei.png" alt="Sello de Mayerly e Israel">
+            </button>
+        </section>
+
+        <section class="boda-inferior" aria-hidden="true">
+            <div class="boda-pliegue boda-pliegue-izquierdo"></div>
+            <div class="boda-pliegue boda-pliegue-derecho"></div>
+            <div class="boda-pliegue-inferior"></div>
+
+            <div class="boda-indicacion">
+                <p>Tenemos una noticia...</p>
+                <p>¡Pulsa aquí y desliza!</p>
+            </div>
+        </section>
+    </div>
 
     <audio id="audio" loop>
         <source src="./imgslider/Christina Perri - A Thousand Years.mp3" type="audio/mpeg">
@@ -409,9 +439,10 @@
             }
         });
 
-        document
-            .getElementById("formAsistencia")
-            .addEventListener("submit", (evento) => {
+        const formAsistencia = document.getElementById("formAsistencia");
+
+        if (formAsistencia) {
+            formAsistencia.addEventListener("submit", (evento) => {
                 evento.preventDefault();
 
                 alert(
@@ -419,9 +450,10 @@
                     "Conecta el formulario a un servicio o backend para guardarla."
                 );
             });
+        }
     </script>
 
-    <script src="slider.js"></script>
+    <script src="./slider.js"></script>
 </body>
 
 </html>
