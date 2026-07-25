@@ -32,12 +32,17 @@ function iniciarSliderPrincipal() {
   let currentIndex = 1;
   let startX = 0;
   let dragMovement = 0;
+
   let isDragging = false;
   let isAnimating = false;
+
   let autoPlayTimer;
   let transitionTimer;
 
+  /* Clones para hacer el slider infinito */
+
   const firstClone = originalSlides[0].cloneNode(true);
+
   const lastClone =
     originalSlides[totalSlides - 1].cloneNode(true);
 
@@ -50,6 +55,8 @@ function iniciarSliderPrincipal() {
     lastClone,
     originalSlides[0]
   );
+
+  /* Crear los puntos inferiores */
 
   originalSlides.forEach((slide, index) => {
     const point = document.createElement("button");
@@ -166,9 +173,11 @@ function iniciarSliderPrincipal() {
   );
 
   function nextSlide() {
-    if (!isDragging && !isAnimating) {
-      moveToSlide(currentIndex + 1, true);
+    if (isDragging || isAnimating) {
+      return;
     }
+
+    moveToSlide(currentIndex + 1, true);
   }
 
   function startAutoPlay() {
@@ -413,9 +422,10 @@ function iniciarSliderTransporte() {
     dot2.addEventListener(
       "click",
       () => {
-        showSlide2(
-          Number(dot2.dataset.slide2)
-        );
+        const selectedSlide2 =
+          Number(dot2.dataset.slide2);
+
+        showSlide2(selectedSlide2);
       }
     );
   });
@@ -439,12 +449,12 @@ function iniciarSliderTransporte() {
 }
 
 /* ====================================
-   COPIAR CUENTAS
+   COPIAR NÚMEROS DE CUENTA
 ==================================== */
 
 async function copiarCuenta(
   idElemento,
-  texto
+  textoAlternativo
 ) {
   try {
     const elemento =
@@ -452,7 +462,7 @@ async function copiarCuenta(
 
     const valor =
       elemento?.innerText.trim() ||
-      texto;
+      textoAlternativo;
 
     await navigator.clipboard.writeText(
       valor
@@ -465,17 +475,19 @@ async function copiarCuenta(
   }
 }
 
-window.copiarTexto1 = () =>
+window.copiarTexto1 = () => {
   copiarCuenta(
     "text-pichincha",
     "2206236571"
   );
+};
 
-window.copiarTexto2 = () =>
+window.copiarTexto2 = () => {
   copiarCuenta(
     "text-guayaquil",
     "0023455221"
   );
+};
 
 /* ====================================
    APARICIONES AL DESLIZAR
@@ -493,9 +505,12 @@ function prepararAnimacionesDeEntrada() {
     document
       .querySelectorAll(selector)
       .forEach((elemento) => {
-        if (
-          elemento.closest(".boda-sobre")
-        ) {
+        /*
+          No se agregan animaciones a los
+          elementos que forman parte del sobre.
+        */
+
+        if (elemento.closest(".boda-sobre")) {
           return;
         }
 
@@ -521,15 +536,13 @@ function prepararAnimacionesDeEntrada() {
       });
   };
 
-  agregar(
-    ".img-1",
-    "reveal-scale"
-  );
+  /*
+    No agregamos .img-1 ni .hero-contenido.
 
-  agregar(
-    ".hero-contenido",
-    "reveal-scale"
-  );
+    De esta manera, la primera pantalla de la
+    invitación aparece inmediatamente después
+    de que el sobre termina de abrirse.
+  */
 
   agregar(".frase p");
 
@@ -663,6 +676,40 @@ function iniciarAnimacionesDeEntrada() {
 }
 
 /* ====================================
+   HACER VISIBLE LA PORTADA
+==================================== */
+
+function mostrarPortadaInmediatamente() {
+  const elementosPortada = [
+    document.querySelector(".img-1"),
+    document.querySelector(".hero-contenido")
+  ];
+
+  elementosPortada.forEach((elemento) => {
+    if (!elemento) {
+      return;
+    }
+
+    elemento.classList.remove(
+      "reveal-item",
+      "reveal-scale",
+      "reveal-left",
+      "reveal-right",
+      "reveal-float"
+    );
+
+    elemento.classList.add(
+      "is-visible"
+    );
+
+    elemento.style.opacity = "1";
+    elemento.style.visibility = "visible";
+    elemento.style.transform = "none";
+    elemento.style.transition = "none";
+  });
+}
+
+/* ====================================
    APERTURA DEL SOBRE
 ==================================== */
 
@@ -683,12 +730,19 @@ function iniciarSobre() {
       "contenidoInvitacion"
     );
 
+  /*
+    Si no se encuentra alguna parte del sobre,
+    mostramos la invitación normalmente.
+  */
+
   if (
     !bodaSobre ||
     !bodaSello ||
     !bodaSuperior ||
     !contenidoInvitacion
   ) {
+    mostrarPortadaInmediatamente();
+
     document.body.classList.remove(
       "sobre-bloqueado"
     );
@@ -716,6 +770,13 @@ function iniciarSobre() {
       temporizadorSeguridad
     );
 
+    /*
+      Asegura que la fotografía principal y
+      los nombres aparezcan inmediatamente.
+    */
+
+    mostrarPortadaInmediatamente();
+
     contenidoInvitacion.setAttribute(
       "aria-hidden",
       "false"
@@ -726,44 +787,35 @@ function iniciarSobre() {
     );
 
     /*
-      La pantalla permanece blanca
-      durante este momento.
-
-      En el siguiente fotograma empieza
-      el fundido corto que muestra
-      la invitación.
+      Oculta inmediatamente todo el sobre
+      cuando termina el movimiento de apertura.
     */
 
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        bodaSobre.classList.add(
-          "finalizando"
-        );
-      });
+    bodaSobre.classList.add(
+      "oculto"
+    );
+
+    bodaSobre.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "sobre-bloqueado"
+    );
+
+    /*
+      Mantiene la invitación colocada desde
+      el inicio y evita movimientos en PC.
+    */
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto"
     });
 
-    window.setTimeout(() => {
-      bodaSobre.classList.add(
-        "oculto"
-      );
-
-      bodaSobre.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-
-      document.body.classList.remove(
-        "sobre-bloqueado"
-      );
-
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "auto"
-      });
-
-      iniciarAnimacionesDeEntrada();
-    }, 100);
+    iniciarAnimacionesDeEntrada();
   }
 
   bodaSello.addEventListener(
@@ -783,15 +835,22 @@ function iniciarSobre() {
         "Invitación abierta"
       );
 
+      /*
+        En cuanto termina el movimiento superior,
+        se muestra la invitación.
+      */
+
       bodaSuperior.addEventListener(
         "transitionend",
         (event) => {
           if (
-            event.propertyName ===
-            "transform"
+            event.target !== bodaSuperior ||
+            event.propertyName !== "transform"
           ) {
-            mostrarInvitacion();
+            return;
           }
+
+          mostrarInvitacion();
         },
         {
           once: true
@@ -799,14 +858,17 @@ function iniciarSobre() {
       );
 
       /*
-        Respaldo por si algún navegador
-        no ejecuta transitionend.
+        Respaldo por si transitionend no se
+        ejecuta en algún navegador.
+
+        Este tiempo no agrega retraso normalmente;
+        solamente se usa si falla transitionend.
       */
 
       temporizadorSeguridad =
         window.setTimeout(
           mostrarInvitacion,
-          1450
+          800
         );
     },
     {
