@@ -928,8 +928,9 @@
    @media (max-width: 460px) {
 
        .seccion-asistencia {
-           margin-top: 15px !important;
+           margin-top: 50px !important;
            padding: 0px;
+           margin-bottom: 80px;
        }
 
        .galeria {
