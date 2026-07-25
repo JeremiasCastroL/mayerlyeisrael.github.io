@@ -341,3 +341,62 @@ document.addEventListener(
 
 moveToSlide(1, false);
 startAutoPlay();
+
+
+/* SLIDER 2  */
+
+const sliderTrack2 = document.getElementById("sliderTrack2");
+const previousButton2 = document.getElementById("prevButton2");
+const nextButton2 = document.getElementById("nextButton2");
+const sliderDots2 = document.querySelectorAll(".slider2-dot");
+const sliderBoxes2 = document.querySelectorAll(".slider2-box");
+
+const totalSlides2 = sliderBoxes2.length;
+
+let currentSlide2 = 0;
+
+function showSlide2(index2) {
+  if (index2 >= totalSlides2) {
+    currentSlide2 = 0;
+  } else if (index2 < 0) {
+    currentSlide2 = totalSlides2 - 1;
+  } else {
+    currentSlide2 = index2;
+  }
+
+  sliderTrack2.style.transform =
+    `translateX(-${currentSlide2 * 100}%)`;
+
+  sliderDots2.forEach((dot2, dotIndex2) => {
+    dot2.classList.toggle(
+      "active",
+      dotIndex2 === currentSlide2
+    );
+  });
+}
+
+nextButton2.addEventListener("click", () => {
+  showSlide2(currentSlide2 + 1);
+});
+
+previousButton2.addEventListener("click", () => {
+  showSlide2(currentSlide2 - 1);
+});
+
+sliderDots2.forEach((dot2) => {
+  dot2.addEventListener("click", () => {
+    const selectedSlide2 = Number(dot2.dataset.slide2);
+
+    showSlide2(selectedSlide2);
+  });
+});
+
+document.addEventListener("keydown", (event2) => {
+  if (event2.key === "ArrowRight") {
+    showSlide2(currentSlide2 + 1);
+  }
+
+  if (event2.key === "ArrowLeft") {
+    showSlide2(currentSlide2 - 1);
+  }
+});
