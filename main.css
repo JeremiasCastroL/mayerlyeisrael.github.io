@@ -1,4 +1,4 @@
-   :root {
+:root {
        --rosa: #cb717e;
        --rosa-claro: #f8e9ec;
        --crema: #fffaf7;
@@ -14,8 +14,6 @@
    html {
        scroll-behavior: smooth;
    }
-
-
 
 
    body {
@@ -173,6 +171,10 @@
        align-items: center
    }
 
+   .seccion-regalo {
+    margin-top: 15px;
+   }
+
    .seccion.compacta {
        padding-top: 38px;
        padding-bottom: 38px;
@@ -220,6 +222,9 @@
        width: 100% !important;
        padding: 0px !important;
        gap: 0px !important;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
        padding: 10px;
        margin: 10px 0px !important;
    }
@@ -229,7 +234,7 @@
        display: flex;
        justify-content: center;
        align-items: center;
-       ;
+       width: 70%;
        padding: 0px;
        margin: 0px;
        border-bottom: 1px solid black;
@@ -303,6 +308,7 @@
        top: 60px;
        margin-bottom: 35px;
        display: flex;
+       width: 100%;
        justify-content: center;
        align-items: center;
        position: relative;
@@ -591,29 +597,28 @@
        width: 100%;
        grid-template-columns: repeat(4, 1fr);
        gap: 8px;
-       margin-top: 22px;
    }
 
    .contador div {
        width: 100%;
-       padding-top: 15px;
-       padding-bottom: 15px;
        border-radius: 14px;
-       background: var(--rosa-claro);
-   }
+/*        background: var(--rosa-claro);
+ */   }
 
    .contador strong {
        display: block;
        color: var(--rosa);
-       font-size: clamp(1.35rem, 6vw, 2rem);
+                  font-family: "Dancing Script", cursive;
+
+       font-size: clamp(1.35rem, 6vw, 2.4rem);
    }
 
    .contador span {
-       font-size: 0.78rem;
+       font-size: 1.3rem;
    }
 
    .divisor {
-       margin-top: 12px;
+       margin-top: 70px;
        padding: 40px 0px;
        width: 170px;
    }
@@ -1030,3 +1035,5 @@
            margin-top: 480px;
        }
    }
+
+   
