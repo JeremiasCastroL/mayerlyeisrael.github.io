@@ -400,3 +400,15 @@ document.addEventListener("keydown", (event2) => {
     showSlide2(currentSlide2 - 1);
   }
 });
+
+/* copiar texto */
+
+function copiarTexto1(){
+   let texto = document.getElementById("text-pichincha").innerText;
+  navigator.clipboard.writeText("2206236571");
+}
+
+function copiarTexto2(){
+   let texto = document.getElementById("text-guayaquil").innerText;
+  navigator.clipboard.writeText("0023455221");
+}
