@@ -751,9 +751,100 @@ function iniciarSobre() {
       "contenidoInvitacion"
     );
 
+  const audioInvitacion =
+    document.getElementById("audio");
+
+  const botonMusicaInvitacion =
+    document.getElementById("botonMusica");
+
+  let musicaPreparada = false;
+  let temporizadorVolumen;
+
   /*
-    Si no se encuentra alguna parte del sobre,
-    mostramos la invitación normalmente.
+    Empieza a reproducir la canción en silencio
+    desde el clic del usuario.
+
+    Esto evita el bloqueo de reproducción
+    automática de los navegadores.
+  */
+
+  function prepararMusica() {
+    if (!audioInvitacion || musicaPreparada) {
+      return;
+    }
+
+    audioInvitacion.currentTime = 0;
+    audioInvitacion.volume = 0;
+
+    audioInvitacion
+      .play()
+      .then(() => {
+        musicaPreparada = true;
+      })
+      .catch((error) => {
+        console.warn(
+          "El navegador bloqueó la música:",
+          error
+        );
+      });
+  }
+
+  /*
+    Cuando aparece la invitación,
+    aumenta suavemente el volumen.
+  */
+
+  function activarMusica() {
+    if (!audioInvitacion) {
+      return;
+    }
+
+    clearInterval(temporizadorVolumen);
+
+    if (audioInvitacion.paused) {
+      audioInvitacion
+        .play()
+        .catch((error) => {
+          console.warn(
+            "No se pudo iniciar la música:",
+            error
+          );
+        });
+    }
+
+    let volumenActual =
+      audioInvitacion.volume;
+
+    const volumenFinal = 0.7;
+
+    temporizadorVolumen =
+      window.setInterval(() => {
+        volumenActual = Math.min(
+          volumenActual + 0.08,
+          volumenFinal
+        );
+
+        audioInvitacion.volume =
+          volumenActual;
+
+        if (
+          volumenActual >= volumenFinal
+        ) {
+          clearInterval(
+            temporizadorVolumen
+          );
+        }
+      }, 30);
+
+    if (botonMusicaInvitacion) {
+      botonMusicaInvitacion.textContent =
+        "❚❚";
+    }
+  }
+
+  /*
+    Si falta algún elemento del sobre,
+    muestra directamente la invitación.
   */
 
   if (
@@ -791,11 +882,6 @@ function iniciarSobre() {
       temporizadorSeguridad
     );
 
-    /*
-      Asegura que la fotografía principal y
-      los nombres aparezcan inmediatamente.
-    */
-
     mostrarPortadaInmediatamente();
 
     contenidoInvitacion.setAttribute(
@@ -806,11 +892,6 @@ function iniciarSobre() {
     document.body.classList.add(
       "invitacion-visible"
     );
-
-    /*
-      Oculta inmediatamente todo el sobre
-      cuando termina el movimiento de apertura.
-    */
 
     bodaSobre.classList.add(
       "oculto"
@@ -825,16 +906,18 @@ function iniciarSobre() {
       "sobre-bloqueado"
     );
 
-    /*
-      Mantiene la invitación colocada desde
-      el inicio y evita movimientos en PC.
-    */
-
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "auto"
     });
+
+    /*
+      La canción se vuelve audible justo
+      cuando aparece la invitación.
+    */
+
+    activarMusica();
 
     iniciarAnimacionesDeEntrada();
   }
@@ -842,6 +925,14 @@ function iniciarSobre() {
   bodaSello.addEventListener(
     "click",
     () => {
+      /*
+        Debe ejecutarse inmediatamente dentro
+        del clic para que el navegador permita
+        reproducir el audio.
+      */
+
+      prepararMusica();
+
       bodaSobre.classList.add(
         "abierto"
       );
@@ -855,11 +946,6 @@ function iniciarSobre() {
         "aria-label",
         "Invitación abierta"
       );
-
-      /*
-        En cuanto termina el movimiento superior,
-        se muestra la invitación.
-      */
 
       bodaSuperior.addEventListener(
         "transitionend",
@@ -878,18 +964,10 @@ function iniciarSobre() {
         }
       );
 
-      /*
-        Respaldo por si transitionend no se
-        ejecuta en algún navegador.
-
-        Este tiempo no agrega retraso normalmente;
-        solamente se usa si falla transitionend.
-      */
-
       temporizadorSeguridad =
         window.setTimeout(
           mostrarInvitacion,
-          800
+          1300
         );
     },
     {
