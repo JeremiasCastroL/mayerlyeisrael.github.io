@@ -3,85 +3,86 @@
 ==================================== */
 
 :root {
-  --sobre-rosa-principal: #efc7cf;
-  --sobre-rosa-claro: #f4d0d6;
-  --sobre-rosa-lateral: #edc3cb;
-  --sobre-texto: #715651;
-  --duracion-sobre: 1.15s;
+    --sobre-rosa-principal: #efc7cf;
+    --sobre-rosa-claro: #f4d0d6;
+    --sobre-rosa-lateral: #edc3cb;
+    --sobre-texto: #715651;
+    --duracion-sobre: 1.15s;
 }
 
 html {
-  /* Reserva el espacio de la barra vertical y evita el pequeño salto
+    /* Reserva el espacio de la barra vertical y evita el pequeño salto
      horizontal que se notaba al abrir en computadora. */
-  scrollbar-gutter: stable;
+    scrollbar-gutter: stable;
 }
 
 body.sobre-bloqueado {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 /* La invitación ya ocupa su posición definitiva desde el inicio.
    Solo está oculta visualmente, por eso al mostrarse no se desplaza. */
 .contenido-invitacion {
-  min-height: 100vh;
-  background: #ffffff;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s ease;
+    min-height: 100vh;
+    background: #ffffff;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease;
 }
 
 body.invitacion-visible .contenido-invitacion {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* El botón de música no aparece encima del sobre. */
 body.sobre-bloqueado .musica {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .musica {
-  transition: opacity 0.3s ease, transform 0.2s ease;
+    transition: opacity 0.3s ease, transform 0.2s ease;
 }
 
 .boda-sobre {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  z-index: 1000;
+    --duracion-apertura: 1.7s;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 1000;
 
-  width: min(100%, 520px);
-  height: 100vh;
-  height: 100svh;
+    width: min(100%, 520px);
+    height: 100vh;
+    height: 100svh;
 
-  overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 15px 45px rgba(74, 50, 50, 0.18);
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 15px 45px rgba(74, 50, 50, 0.18);
 
-  transform: translateX(-50%);
-  opacity: 1;
+    transform: translateX(-50%);
+    opacity: 1;
 }
 
 /* Esta capa permanece totalmente blanca mientras las dos piezas
    del sobre salen de la pantalla. */
 .sobre-fondo-blanco {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: #ffffff;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #ffffff;
 }
 
 /* Cuando termina el movimiento de las piezas, la pantalla blanca
    desaparece rápidamente y deja ver la invitación. */
 .boda-sobre.finalizando {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.28s ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
 }
 
 .boda-sobre.oculto {
-  display: none;
+    display: none;
 }
 
 /* ====================================
@@ -89,61 +90,65 @@ body.sobre-bloqueado .musica {
 ==================================== */
 
 .boda-superior {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
 
-  width: 100%;
-  height: 60%;
+    width: 100%;
+    height: 60%;
 
-  will-change: transform;
-  transition: transform var(--duracion-sobre) cubic-bezier(0.7, 0, 0.3, 1);
+    overflow: visible;
+    will-change: transform;
+
+    transition:
+        transform var(--duracion-apertura) cubic-bezier(0.7, 0, 0.3, 1);
 }
 
 .boda-tapa {
-  position: absolute;
-  inset: 0;
+    position: absolute;
+    inset: 0;
+    box-shadow: 10px 10px 5px grey;
+    z-index: 2;
 
-  background: var(--sobre-rosa-principal);
+    background: var(--sobre-rosa-principal);
 
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 47%,
-    50% 100%,
-    0 47%
-  );
+    clip-path: polygon(0 0,
+            100% 0,
+            100% 47%,
+            50% 100%,
+            0 47%);
 
-  filter: drop-shadow(0 7px 5px rgba(113, 70, 79, 0.16));
+    filter:
+        drop-shadow(0 4px 2px rgba(79, 48, 54, 0.32)) drop-shadow(0 10px 8px rgba(79, 48, 54, 0.18)) drop-shadow(0 20px 18px rgba(79, 48, 54, 0.08));
 }
 
 .boda-nombres {
-  position: absolute;
-  top: 27%;
-  left: 50%;
+    position: absolute;
+    top: 27%;
+    left: 50%;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  color: var(--sobre-texto);
-  font-family: "Dancing Script", cursive;
-  font-size: clamp(38px, 9vw, 55px);
-  line-height: 1.05;
-  white-space: nowrap;
+    color: var(--sobre-texto);
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(38px, 9vw, 55px);
+    line-height: 1.05;
+    white-space: nowrap;
 
-  transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 .boda-nombres span {
-  font-family: "Dancing Script", cursive;
-  font-size: clamp(42px, 10vw, 54px);
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(47px, 10vw, 60px);
 }
 
 .boda-nombres .boda-signo {
-  margin: 4px 0;
-  font-size: 36px;
+    margin: 4px 0;
+    font-size: 36px;
 }
 
 /* ====================================
@@ -151,47 +156,47 @@ body.sobre-bloqueado .musica {
 ==================================== */
 
 .boda-sello {
-  position: absolute;
-  left: 50%;
-  bottom: -61px;
-  z-index: 10;
+    position: absolute;
+    left: 50%;
+    bottom: -61px;
+    z-index: 10;
 
-  width: 140px;
-  height: 140px;
+    width: 150px;
+    height: 150px;
 
-  display: grid;
-  place-items: center;
+    display: grid;
+    place-items: center;
 
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
 
-  cursor: pointer;
-  transform: translateX(-50%);
+    cursor: pointer;
+    transform: translateX(-50%);
 
-  transition:
-    filter 0.25s ease,
-    transform 0.25s ease;
+    transition:
+        filter 0.25s ease,
+        transform 0.25s ease;
 }
 
 .img-sello {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  pointer-events: none;
-  user-select: none;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    pointer-events: none;
+    user-select: none;
 }
 
 .boda-sello:hover {
-  filter: brightness(1.06);
-  transform: translateX(-50%) scale(1.035);
+    filter: brightness(1.06);
+    transform: translateX(-50%) scale(1.035);
 }
 
 .boda-sello:focus-visible {
-  outline: 3px solid rgba(113, 86, 81, 0.55);
-  outline-offset: 5px;
+    outline: 3px solid rgba(113, 86, 81, 0.55);
+    outline-offset: 5px;
 }
 
 /* ====================================
@@ -199,82 +204,83 @@ body.sobre-bloqueado .musica {
 ==================================== */
 
 .boda-inferior {
-  position: absolute;
-  top: 27%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 3;
+    position: absolute;
+    top: 27%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
 
-  overflow: hidden;
-  background: transparent;
+    overflow: hidden;
+    background: transparent;
 
-  will-change: transform;
-  transition: transform var(--duracion-sobre) cubic-bezier(0.7, 0, 0.3, 1);
+    will-change: transform;
+    transition:
+        transform var(--duracion-apertura) cubic-bezier(0.7, 0, 0.3, 1);
 }
 
 .boda-pliegue-izquierdo {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
 
-  background: var(--sobre-rosa-lateral);
-  clip-path: polygon(0 0, 50% 47%, 0 100%);
-  filter: drop-shadow(3px 0 2px rgba(128, 77, 88, 0.22));
+    background: var(--sobre-rosa-lateral);
+    clip-path: polygon(0 0, 50% 47%, 0 100%);
+    filter: drop-shadow(3px 0 2px rgba(128, 77, 88, 0.22));
 }
 
 .boda-pliegue-derecho {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
 
-  background: var(--sobre-rosa-lateral);
-  clip-path: polygon(100% 0, 50% 47%, 100% 100%);
-  filter: drop-shadow(-3px 0 2px rgba(128, 77, 88, 0.22));
+    background: var(--sobre-rosa-lateral);
+    clip-path: polygon(100% 0, 50% 47%, 100% 100%);
+    filter: drop-shadow(-3px 0 2px rgba(128, 77, 88, 0.22));
 }
 
 .boda-pliegue-inferior {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
+    position: absolute;
+    inset: 0;
+    z-index: 4;
 
-  background: var(--sobre-rosa-claro);
-  clip-path: polygon(0 100%, 50% 38%, 100% 100%);
-  filter: drop-shadow(0 -3px 2px rgba(128, 77, 88, 0.25));
+    background: var(--sobre-rosa-claro);
+    clip-path: polygon(0 100%, 50% 38%, 100% 100%);
+    filter: drop-shadow(0 -3px 2px rgba(128, 77, 88, 0.25));
 }
 
 .boda-pliegue-inferior::before {
-  content: "";
+    content: "";
 
-  position: absolute;
-  top: 34%;
-  left: 50%;
+    position: absolute;
+    top: 34%;
+    left: 50%;
 
-  width: 76px;
-  height: 76px;
+    width: 76px;
+    height: 76px;
 
-  border-radius: 50%;
-  background: var(--sobre-rosa-claro);
-  box-shadow: 0 -3px 0 rgba(128, 77, 88, 0.2);
+    border-radius: 50%;
+    background: var(--sobre-rosa-claro);
+    box-shadow: 0 -3px 0 rgba(128, 77, 88, 0.2);
 
-  transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 .boda-indicacion {
-  position: absolute;
-  right: 20px;
-  bottom: 8%;
-  left: 20px;
-  z-index: 6;
+    position: absolute;
+    right: 20px;
+    bottom: 8%;
+    left: 20px;
+    z-index: 6;
 
-  color: #191313;
-  text-align: center;
-  font-size: clamp(19px, 4.5vw, 24px);
-  line-height: 1.35;
+    color: #191313;
+    text-align: center;
+    font-size: clamp(19px, 4.5vw, 24px);
+    line-height: 1.35;
 }
 
 .boda-indicacion p {
-  margin: 0;
+    margin: 0;
 }
 
 /* ====================================
@@ -282,15 +288,15 @@ body.sobre-bloqueado .musica {
 ==================================== */
 
 .boda-sobre.abierto .boda-superior {
-  transform: translateY(-145%);
+    transform: translateY(-145%);
 }
 
 .boda-sobre.abierto .boda-inferior {
-  transform: translateY(112%);
+    transform: translateY(112%);
 }
 
 .boda-sobre.abierto .boda-sello {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 /* ====================================
@@ -298,44 +304,46 @@ body.sobre-bloqueado .musica {
 ==================================== */
 
 .reveal-item {
-  opacity: 0;
-  transform: translate3d(0, 34px, 0);
-  transition:
-    opacity 0.75s ease,
-    transform 0.75s cubic-bezier(0.2, 0.7, 0.25, 1);
-  will-change: opacity, transform;
+    opacity: 0;
+    transform: translate3d(0, 34px, 0);
+    transition:
+        opacity 0.75s ease,
+        transform 0.75s cubic-bezier(0.2, 0.7, 0.25, 1);
+    will-change: opacity, transform;
 }
 
 .reveal-item.reveal-left {
-  transform: translate3d(-34px, 0, 0);
+    transform: translate3d(-34px, 0, 0);
 }
 
 .reveal-item.reveal-right {
-  transform: translate3d(34px, 0, 0);
+    transform: translate3d(34px, 0, 0);
 }
 
 .reveal-item.reveal-scale {
-  transform: scale(0.92);
+    transform: scale(0.92);
 }
 
 .reveal-item.is-visible {
-  opacity: var(--reveal-final-opacity, 1);
-  transform: translate3d(0, 0, 0) scale(1);
+    opacity: var(--reveal-final-opacity, 1);
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 /* Un pequeño movimiento suave después de aparecer, ideal para flores. */
 .reveal-item.is-visible.reveal-float {
-  animation: flotacion-suave 5s ease-in-out 0.8s infinite;
+    animation: flotacion-suave 5s ease-in-out 0.8s infinite;
 }
 
 @keyframes flotacion-suave {
-  0%, 100% {
-    translate: 0 0;
-  }
 
-  50% {
-    translate: 0 -7px;
-  }
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -7px;
+    }
 }
 
 /* ====================================
@@ -343,60 +351,182 @@ body.sobre-bloqueado .musica {
 ==================================== */
 
 @media (max-width: 600px) {
-  .boda-sobre {
-    width: 100%;
-    box-shadow: none;
-  }
+    .boda-sobre {
+        width: 100%;
+        box-shadow: none;
+    }
 
-  .boda-sello {
-    width: 116px;
-    height: 116px;
-    bottom: -55px;
-  }
+    .boda-sello {
+        width: 160px;
+        height: 160px;
+        bottom: -55px;
+    }
 
-  .boda-nombres {
-    top: 24%;
-  }
+    .boda-nombres {
+        top: 24%;
+    }
 
-  .boda-nombres span {
-    font-size: clamp(40px, 12vw, 50px);
-  }
+    .boda-nombres span {
+        font-size: clamp(40px, 12vw, 50px);
+    }
 
-  .boda-indicacion {
-    bottom: 10%;
-  }
+    .boda-indicacion {
+        bottom: 10%;
+    }
+
+    /*     .boda-pliegue-izquierdo {
+        clip-path: polygon(0 0, 50% 45%, 0 100%);
+    }
+
+    .boda-pliegue-derecho {
+        clip-path: polygon(100% 0, 50% 45%, 100% 100%);
+    }
+    
+    .boda-pliegue-inferior {
+        clip-path: polygon(0 100%, 50% 37%, 100% 100%);
+    } */
+
+    .boda-pliegue-inferior::before {
+        top: 38%;
+        width: 68px;
+        height: 68px;
+    }
 
   .boda-pliegue-izquierdo {
-    clip-path: polygon(0 0, 50% 45%, 0 100%);
-  }
+    clip-path: polygon(
+        0 0,
+        50% 37%,
+        0 60%
+    );
+}
 
-  .boda-pliegue-derecho {
-    clip-path: polygon(100% 0, 50% 45%, 100% 100%);
-  }
+.boda-pliegue-derecho {
+    clip-path: polygon(
+        100% 0,
+        50% 37%,
+        100% 60%
+    );
+}
 
-  .boda-pliegue-inferior {
-    clip-path: polygon(0 100%, 50% 37%, 100% 100%);
-  }
+.boda-pliegue-inferior {
+    clip-path: polygon(
+        50% 28%,
+        100% 60%,
+        100% 100%,
+        0 100%,
+        0 60%
+    );
 
-  .boda-pliegue-inferior::before {
-    top: 33%;
-    width: 68px;
-    height: 68px;
-  }
+   
+}
+
+    /* Quita el círculo que redondeaba la punta */
+
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 
-  .reveal-item {
-    opacity: 1;
-    transform: none;
-  }
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal-item {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* ====================================
+   TAPA SUPERIOR CON SOMBRA REAL
+==================================== */
+
+.boda-superior {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+
+    width: 100%;
+    height: 60%;
+
+    overflow: visible;
+    isolation: isolate;
+    will-change: transform;
+
+    transition:
+        transform var(--duracion-apertura) cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+/* Sombra cercana: más oscura junto al borde */
+
+.boda-superior::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background: rgba(70, 40, 48, 0.42);
+
+    clip-path: polygon(0 0,
+            100% 0,
+            100% 47%,
+            50% 100%,
+            0 47%);
+
+    transform: translateY(6px);
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+/* Sombra exterior: más clara, suave y extendida */
+
+.boda-superior::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background: rgba(70, 40, 48, 0.16);
+
+    clip-path: polygon(0 0,
+            100% 0,
+            100% 47%,
+            50% 100%,
+            0 47%);
+
+    transform:
+        translateY(15px) scale(1.018);
+
+    transform-origin: center top;
+
+    filter: blur(17px);
+
+    pointer-events: none;
+}
+
+/* Tapa rosa colocada encima de las dos sombras */
+
+.boda-tapa {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background: var(--sobre-rosa-principal);
+
+    clip-path: polygon(0 0,
+            100% 0,
+            100% 47%,
+            50% 100%,
+            0 47%);
+
+    filter: none;
 }
