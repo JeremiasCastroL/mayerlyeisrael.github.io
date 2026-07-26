@@ -27,7 +27,7 @@ function iniciarSliderPrincipal() {
   }
 
   const transitionDuration = 500;
-  const autoPlayTime = 10000;
+  const autoPlayTime = 5000;
 
   let currentIndex = 1;
   let startX = 0;
@@ -89,6 +89,31 @@ function iniciarSliderPrincipal() {
     return slider.getBoundingClientRect().width;
   }
 
+function getSliderGap() {
+  const estilosTrack =
+    window.getComputedStyle(sliderTrack);
+
+  return (
+    parseFloat(estilosTrack.columnGap) ||
+    parseFloat(estilosTrack.gap) ||
+    0
+  );
+}
+
+function getSlideStep() {
+  const slideActual =
+    sliderTrack.querySelector(".slide");
+
+  if (!slideActual) {
+    return getSliderWidth();
+  }
+
+  const anchoSlide =
+    slideActual.getBoundingClientRect().width;
+
+  return anchoSlide + getSliderGap();
+}
+
   function getRealIndex() {
     return (
       (currentIndex - 1 + totalSlides) %
@@ -124,7 +149,7 @@ function iniciarSliderPrincipal() {
     clearTimeout(transitionTimer);
 
     const position =
-      -(currentIndex * getSliderWidth());
+  -(currentIndex * getSlideStep());
 
     setSliderPosition(position, animated);
     updatePoints();
@@ -148,8 +173,8 @@ function iniciarSliderPrincipal() {
       currentIndex = 1;
     }
 
-    const position =
-      -(currentIndex * getSliderWidth());
+   const position =
+  -(currentIndex * getSlideStep());
 
     setSliderPosition(position, false);
 
@@ -236,7 +261,7 @@ function iniciarSliderPrincipal() {
       event.clientX - startX;
 
     const currentPosition =
-      -(currentIndex * getSliderWidth());
+  -(currentIndex * getSlideStep());
 
     setSliderPosition(
       currentPosition + dragMovement,
@@ -566,10 +591,6 @@ function prepararAnimacionesDeEntrada() {
     "reveal-scale"
   );
 
-  agregar(
-    ".slider",
-    "reveal-scale"
-  );
 
   agregar(
     ".divisor",
