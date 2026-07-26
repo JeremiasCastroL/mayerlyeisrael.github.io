@@ -396,7 +396,7 @@ body.sobre-bloqueado .musica {
     clip-path: polygon(
         0 0,
         50% 37%,
-        0 60%
+        0 65%
     );
 }
 
@@ -404,20 +404,24 @@ body.sobre-bloqueado .musica {
     clip-path: polygon(
         100% 0,
         50% 37%,
-        100% 60%
+        100% 65%
     );
 }
 
 .boda-pliegue-inferior {
     clip-path: polygon(
         50% 28%,
-        100% 60%,
+        100% 65%,
         100% 100%,
         0 100%,
-        0 60%
+        0 65%
     );
 
    
+}
+
+.boda-pliegue-inferior::before {
+    display: none !important;
 }
 
     /* Quita el círculo que redondeaba la punta */
