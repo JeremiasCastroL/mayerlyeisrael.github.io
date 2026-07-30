@@ -1,3 +1,60 @@
+let videoPortadaReproducido = false;
+
+function reproducirVideoPortada() {
+  const video =
+    document.getElementById("videoAnimacion");
+
+  if (
+    !video ||
+    videoPortadaReproducido
+  ) {
+    return;
+  }
+
+  videoPortadaReproducido = true;
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+
+  const iniciarVideo = () => {
+    video.currentTime = 0;
+
+    video.play()
+      .catch((error) => {
+        videoPortadaReproducido = false;
+
+        console.warn(
+          "No se pudo reproducir el video:",
+          error
+        );
+      });
+  };
+
+  if (video.readyState >= 2) {
+    iniciarVideo();
+  } else {
+    video.addEventListener(
+      "loadeddata",
+      iniciarVideo,
+      {
+        once: true
+      }
+    );
+
+    video.load();
+  }
+
+  video.addEventListener(
+    "ended",
+    () => {
+      video.pause();
+    },
+    {
+      once: true
+    }
+  );
+}
 /* ====================================
    SLIDER DE FOTOS
 ==================================== */
@@ -89,30 +146,30 @@ function iniciarSliderPrincipal() {
     return slider.getBoundingClientRect().width;
   }
 
-function getSliderGap() {
-  const estilosTrack =
-    window.getComputedStyle(sliderTrack);
+  function getSliderGap() {
+    const estilosTrack =
+      window.getComputedStyle(sliderTrack);
 
-  return (
-    parseFloat(estilosTrack.columnGap) ||
-    parseFloat(estilosTrack.gap) ||
-    0
-  );
-}
-
-function getSlideStep() {
-  const slideActual =
-    sliderTrack.querySelector(".slide");
-
-  if (!slideActual) {
-    return getSliderWidth();
+    return (
+      parseFloat(estilosTrack.columnGap) ||
+      parseFloat(estilosTrack.gap) ||
+      0
+    );
   }
 
-  const anchoSlide =
-    slideActual.getBoundingClientRect().width;
+  function getSlideStep() {
+    const slideActual =
+      sliderTrack.querySelector(".slide");
 
-  return anchoSlide + getSliderGap();
-}
+    if (!slideActual) {
+      return getSliderWidth();
+    }
+
+    const anchoSlide =
+      slideActual.getBoundingClientRect().width;
+
+    return anchoSlide + getSliderGap();
+  }
 
   function getRealIndex() {
     return (
@@ -149,7 +206,7 @@ function getSlideStep() {
     clearTimeout(transitionTimer);
 
     const position =
-  -(currentIndex * getSlideStep());
+      -(currentIndex * getSlideStep());
 
     setSliderPosition(position, animated);
     updatePoints();
@@ -173,8 +230,8 @@ function getSlideStep() {
       currentIndex = 1;
     }
 
-   const position =
-  -(currentIndex * getSlideStep());
+    const position =
+      -(currentIndex * getSlideStep());
 
     setSliderPosition(position, false);
 
@@ -261,7 +318,7 @@ function getSlideStep() {
       event.clientX - startX;
 
     const currentPosition =
-  -(currentIndex * getSlideStep());
+      -(currentIndex * getSlideStep());
 
     setSliderPosition(
       currentPosition + dragMovement,
@@ -917,9 +974,15 @@ function iniciarSobre() {
       cuando aparece la invitación.
     */
 
+
+
     activarMusica();
 
     iniciarAnimacionesDeEntrada();
+
+    requestAnimationFrame(() => {
+      reproducirVideoPortada();
+    });
   }
 
   bodaSello.addEventListener(
