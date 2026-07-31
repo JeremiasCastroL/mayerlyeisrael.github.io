@@ -55,6 +55,89 @@ function reproducirVideoPortada() {
     }
   );
 }
+
+
+/*  */
+
+function iniciarVideoAnillo() {
+  const video =
+    document.getElementById("videoAnillo");
+
+  if (!video) {
+    return;
+  }
+
+  let yaSeReprodujo = false;
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.preload = "auto";
+
+  const reproducirVideo = () => {
+    if (yaSeReprodujo) {
+      return;
+    }
+
+    yaSeReprodujo = true;
+    video.currentTime = 0;
+
+    video.play().catch((error) => {
+      yaSeReprodujo = false;
+
+      console.warn(
+        "No se pudo reproducir el video:",
+        error
+      );
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((entrada) => {
+        if (
+          entrada.isIntersecting &&
+          entrada.intersectionRatio >= 0.4
+        ) {
+          reproducirVideo();
+
+          observer.unobserve(video);
+        }
+      });
+    },
+    {
+      threshold: [0, 0.4, 1],
+      rootMargin: "0px 0px -5% 0px"
+    }
+  );
+
+  observer.observe(video);
+
+  video.addEventListener(
+    "ended",
+    () => {
+      video.pause();
+
+      /*
+        Conserva el último fotograma,
+        incluso en navegadores que vuelven
+        al fotograma inicial.
+      */
+      if (
+        Number.isFinite(video.duration) &&
+        video.duration > 0.05
+      ) {
+        video.currentTime =
+          video.duration - 0.05;
+      }
+    },
+    {
+      once: true
+    }
+  );
+}
+
+
 /* ====================================
    SLIDER DE FOTOS
 ==================================== */
@@ -83,8 +166,8 @@ function iniciarSliderPrincipal() {
     return;
   }
 
-  const transitionDuration = 500;
-  const autoPlayTime = 5000;
+  const transitionDuration = 800;
+  const autoPlayTime = 8000;
 
   let currentIndex = 1;
   let startX = 0;
@@ -191,7 +274,7 @@ function iniciarSliderPrincipal() {
 
   function setSliderPosition(position, animated) {
     sliderTrack.style.transition = animated
-      ? `transform ${transitionDuration}ms ease`
+      ? `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`
       : "none";
 
     sliderTrack.style.transform =
@@ -568,6 +651,13 @@ window.copiarTexto2 = () => {
   copiarCuenta(
     "text-guayaquil",
     "0023455221"
+  );
+};
+
+window.copiarTexto3 = () => {
+  copiarCuenta(
+    "text-ci",
+    "0941930661"
   );
 };
 
@@ -1039,10 +1129,62 @@ function iniciarSobre() {
   );
 }
 
+function prepararVideoPortada() {
+  const video =
+    document.getElementById("videoAnimacion");
+
+  if (!video) {
+    return;
+  }
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.preload = "auto";
+
+  video.load();
+}
+
 /* ====================================
    INICIO
 ==================================== */
 
-iniciarSliderPrincipal();
+/* iniciarSliderPrincipal();
 iniciarSliderTransporte();
-iniciarSobre();
+iniciarSobre(); */
+
+/* ====================================
+   INICIO
+==================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (
+    typeof iniciarSliderPrincipal === "function"
+  ) {
+    iniciarSliderPrincipal();
+  }
+
+  if (
+    typeof iniciarSliderTransporte === "function"
+  ) {
+    iniciarSliderTransporte();
+  }
+
+  if (
+    typeof prepararVideoPortada === "function"
+  ) {
+    prepararVideoPortada();
+  }
+
+  if (
+    typeof iniciarVideoAnillo === "function"
+  ) {
+    iniciarVideoAnillo();
+  }
+
+  if (
+    typeof iniciarSobre === "function"
+  ) {
+    iniciarSobre();
+  }
+});
