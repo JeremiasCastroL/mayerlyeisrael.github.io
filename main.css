@@ -564,7 +564,7 @@ strong,
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:2px;
+    gap: 2px;
     margin-top: 15px;
     font-size: 21px !important;
     background-color: #cb717e;
@@ -1022,6 +1022,11 @@ strong,
 
 
 @media (max-width: 460px) {
+
+    .img-letras {
+        width: 200px;
+        margin-bottom: 30px;
+    }
 
     .seccion-asistencia {
         margin-top: 50px !important;
