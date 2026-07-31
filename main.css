@@ -68,7 +68,7 @@ textarea {
     /* min-height: 650px; */
     width: 100%;
     height: auto;
-    top: 50px;
+    top: 40px;
     display: grid;
     text-align: center;
     color: white;
@@ -357,8 +357,7 @@ h1 {
 }
 
 .frase {
-    padding-top: 60px 32px;
-    top: 60px;
+    top: 70px;
     margin-bottom: 35px;
     display: flex;
     width: 100%;
@@ -1049,7 +1048,7 @@ strong,
     }
 
     .frase {
-        top: 20px;
+        top: 33px;
         display: flex;
         justify-content: center;
         align-items: center;
