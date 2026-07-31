@@ -34,13 +34,13 @@
                     <img class="icono anillos" src="https://specially.love/templates/aquarelle/pink/rings.gif"
                         alt="Anillos">
                     <p class="sobrelinea font-2">¡Nos casamos!</p>
-                    <p class="fecha-hero font-2">- 24 · 12 · 2026 -</p>
+                    <p class="fecha-hero font-2">- 26 · 10 · 2026 -</p>
                 </div>
             </header>
 
             <section class="frase">
                 <img src="./imgs/cloudbig.png" class="cloudbig">
-                <p>«Las muchas aguas no podrán apagar el amor, ni lo ahogarán los ríos</p>
+                <p>Las muchas aguas no podrán apagar el amor, ni lo ahogarán los ríos</p>
 
             </section>
 
@@ -163,6 +163,7 @@
                     <div class="tarjeta code-dress">
                         <div class="container-pink">
                             <h3>¿Nos acompañas?</h3>
+                            <p class="parrafo">Celebración exclusiva para adultos</p>
                             <a class="container-gift"
                                 href="https://docs.google.com/forms/d/e/1FAIpQLSfglYdEHvi0ZqKraVteNatQUPkrpyY5NEt_IyDgVG5SPxVWnQ/viewform?usp=publish-editor">
                                 <img class="gift-location hoja-movimiento img-sobre" src="./imgs/invitacion-img.png" />
@@ -175,11 +176,17 @@
                 </div>
             </section>
 
-            <!--         <img class="flower2 flower4" src="./imgs/floresright4.png" />
- --> <img class="foto-ancha" src="./imgs/lovers2.jpeg" alt="Mayerly e Israel">
+            <!--  <img class="flower2 flower4" src="./imgs/floresright4.png" />
+            <img class="foto-ancha" src="./imgs/lovers2.jpeg" alt="Mayerly e Israel"> -->
+
+            <div class="caja-video-anillo">
+                <video id="videoAnillo" muted playsinline preload="auto">
+                    <source src="./imgs/animacion_anillo.mp4" type="video/mp4">
+                </video>
+            </div>
 
 
-            <section class="seccion seccion-1">
+            <section class="seccion seccion-1 itinerarioseccion">
                 <img class="img-main img-ceremonia asistencia-text" src="./imgs/itinerarioblack.png" alt="MDN" />
 
                 <div class="content-tarjeta">
@@ -277,7 +284,7 @@
 
                                     </div>
                                     <div>
-                                        <h3 id="text-pichincha">
+                                        <h3 onclick="copiarTexto1()" id="text-pichincha">
                                             2206236571
                                         </h3>
                                         <svg onclick="copiarTexto1()" width="20px" height="22px" viewBox="0 0 15 15"
@@ -301,7 +308,7 @@
                                         <p>B. Guayaquil - Israel Castro López</p>
                                     </div>
                                     <div>
-                                        <h3 id="text-guayaquil">
+                                        <h3 onclick="copiarTexto2()" id="text-guayaquil">
                                             0023455221
                                         </h3>
                                         <svg onclick="copiarTexto2()" width="20px" height="22px" viewBox="0 0 15 15"
@@ -318,6 +325,23 @@
                                             </g>
                                         </svg>
                                     </div>
+                                </div>
+                                <div class="parrafoci">
+                                    <p>C.I:­</p>
+                                    <p onclick="copiarTexto3()" id="text-ci">0941930661­­­</p>
+                                    <svg onclick="copiarTexto3()" width="20px" height="22px" viewBox="0 0 15 15"
+                                            fill="#cb717e" xmlns="http://www.w3.org/2000/svg"
+                                            class="animate-lightpulse">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5 2V1H10V2H5ZM4.75 0C4.33579 0 4 0.335786 4 0.75V1H3.5C2.67157 1 2 1.67157 2 2.5V12.5C2 13.3284 2.67157 14 3.5 14H11.5C12.3284 14 13 13.3284 13 12.5V2.5C13 1.67157 12.3284 1 11.5 1H11V0.75C11 0.335786 10.6642 0 10.25 0H4.75ZM11 2V2.25C11 2.66421 10.6642 3 10.25 3H4.75C4.33579 3 4 2.66421 4 2.25V2H3.5C3.22386 2 3 2.22386 3 2.5V12.5C3 12.7761 3.22386 13 3.5 13H11.5C11.7761 13 12 12.7761 12 12.5V2.5C12 2.22386 11.7761 2 11.5 2H11Z"
+                                                    fill="#fff"></path>
+                                            </g>
+                                        </svg>
                                 </div>
                             </div>
 
@@ -367,11 +391,8 @@
 
         <section class="boda-superior">
             <div class="boda-tapa">
-                <div class="boda-nombres">
-                    <span>Mayerly</span>
-                    <span class="boda-signo">&amp;</span>
-                    <span>Israel</span>
-                </div>
+
+            <img class="img-letras" src="./imgs/letras-sobre.png"/>
             </div>
 
             <button class="boda-sello" id="bodaSello" type="button" aria-label="Abrir invitación" aria-expanded="false">
@@ -401,7 +422,7 @@
     </button>
 
     <script>
-        const fechaBoda = new Date("2026-09-10T18:00:00+01:00");
+        const fechaBoda = new Date("2026-10-26T18:00:00+01:00");
 
         function actualizarContador() {
             const ahora = new Date();
