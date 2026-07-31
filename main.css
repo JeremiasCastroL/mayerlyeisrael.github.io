@@ -1024,14 +1024,18 @@ strong,
 @media (max-width: 460px) {
 
     .img-letras {
-        width: 200px;
-        margin-bottom: 30px;
+        width: 215px !important;
+        margin-bottom: 30px !important;
     }
 
     .seccion-asistencia {
         margin-top: 50px !important;
         padding: 0px;
         margin-bottom: 75px;
+    }
+
+    .seccionautobus {
+        margin-top: 24px !important;
     }
 
     .galeria {
