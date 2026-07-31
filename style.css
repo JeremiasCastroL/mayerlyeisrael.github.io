@@ -107,6 +107,9 @@ body.sobre-bloqueado .musica {
 
 .boda-tapa {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     inset: 0;
     box-shadow: 10px 10px 5px grey;
     z-index: 2;
@@ -187,6 +190,11 @@ body.sobre-bloqueado .musica {
     border-radius: 50%;
     pointer-events: none;
     user-select: none;
+}
+
+.img-letras {
+    width: 250px;
+    margin-bottom: 20px;
 }
 
 .boda-sello:hover {
