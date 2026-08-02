@@ -241,10 +241,10 @@ h1 {
 
 .teesperamos {
     position: absolute;
-    bottom: 53px;
+    bottom: 50px;
     font-family: "Roboto Slab", serif;
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 400;
 }
 
 /* Aparición suave del texto “¡Te esperamos!” */
