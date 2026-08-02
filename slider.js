@@ -60,7 +60,8 @@ function reproducirVideoPortada() {
 /*  */
 
 function iniciarVideoAnillo() {
-  const video = document.getElementById("videoAnillo");
+  const video =
+    document.getElementById("videoAnillo");
 
   if (!video) {
     return;
@@ -72,12 +73,6 @@ function iniciarVideoAnillo() {
   video.defaultMuted = true;
   video.playsInline = true;
   video.preload = "auto";
-
-  // Hace que la animación avance un poco más rápido.
-  video.playbackRate = 1.15;
-
-  // Empieza a cargarlo desde que abre la página.
-  video.load();
 
   const reproducirVideo = () => {
     if (yaSeReprodujo) {
@@ -102,7 +97,7 @@ function iniciarVideoAnillo() {
       entradas.forEach((entrada) => {
         if (
           entrada.isIntersecting &&
-          entrada.intersectionRatio >= 0.05
+          entrada.intersectionRatio >= 0.4
         ) {
           reproducirVideo();
           observer.unobserve(video);
@@ -110,8 +105,8 @@ function iniciarVideoAnillo() {
       });
     },
     {
-      threshold: [0, 0.05],
-      rootMargin: "0px 0px 15% 0px"
+      threshold: [0, 0.4, 1],
+      rootMargin: "0px 0px -5% 0px"
     }
   );
 
@@ -758,8 +753,8 @@ function prepararAnimacionesDeEntrada() {
     "reveal-scale reveal-float"
   );
 
-  agregar(".rosas-final");
-  agregar(".teesperamos");
+  /*  agregar(".rosas-final");
+   agregar(".teesperamos"); */
 
   document
     .querySelectorAll(".evento")
@@ -845,6 +840,62 @@ function iniciarAnimacionesDeEntrada() {
   );
 }
 
+
+function iniciarAnimacionFinal() {
+  const elementosFinales =
+    document.querySelectorAll(
+      ".rosas-final, .teesperamos"
+    );
+
+  if (elementosFinales.length === 0) {
+    return;
+  }
+
+  elementosFinales.forEach((elemento) => {
+    elemento.classList.add("reveal-item");
+  });
+
+  if (
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches ||
+    !("IntersectionObserver" in window)
+  ) {
+    elementosFinales.forEach((elemento) => {
+      elemento.classList.add("is-visible");
+    });
+
+    return;
+  }
+
+  const observerFinal =
+    new IntersectionObserver(
+      (entradas, observer) => {
+        entradas.forEach((entrada) => {
+          if (!entrada.isIntersecting) {
+            return;
+          }
+
+          entrada.target.classList.add(
+            "is-visible"
+          );
+
+          observer.unobserve(
+            entrada.target
+          );
+        });
+      },
+      {
+        threshold: 0.01,
+        rootMargin: "0px 0px 30% 0px"
+      }
+    );
+
+  elementosFinales.forEach((elemento) => {
+    observerFinal.observe(elemento);
+  });
+}
+
 /* ====================================
    HACER VISIBLE LA PORTADA
 ==================================== */
@@ -882,6 +933,8 @@ function mostrarPortadaInmediatamente() {
 /* ====================================
    APERTURA DEL SOBRE
 ==================================== */
+
+
 
 function iniciarSobre() {
   const bodaSobre =
@@ -1183,6 +1236,14 @@ document.addEventListener("DOMContentLoaded", () => {
   ) {
     iniciarVideoAnillo();
   }
+
+
+  if (
+    typeof iniciarAnimacionFinal === "function"
+  ) {
+    iniciarAnimacionFinal();
+  }
+
 
   if (
     typeof iniciarSobre === "function"
