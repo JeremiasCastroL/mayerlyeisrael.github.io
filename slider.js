@@ -60,8 +60,7 @@ function reproducirVideoPortada() {
 /*  */
 
 function iniciarVideoAnillo() {
-  const video =
-    document.getElementById("videoAnillo");
+  const video = document.getElementById("videoAnillo");
 
   if (!video) {
     return;
@@ -73,6 +72,12 @@ function iniciarVideoAnillo() {
   video.defaultMuted = true;
   video.playsInline = true;
   video.preload = "auto";
+
+  // Hace que la animación avance un poco más rápido.
+  video.playbackRate = 1.15;
+
+  // Empieza a cargarlo desde que abre la página.
+  video.load();
 
   const reproducirVideo = () => {
     if (yaSeReprodujo) {
@@ -97,17 +102,16 @@ function iniciarVideoAnillo() {
       entradas.forEach((entrada) => {
         if (
           entrada.isIntersecting &&
-          entrada.intersectionRatio >= 0.4
+          entrada.intersectionRatio >= 0.05
         ) {
           reproducirVideo();
-
           observer.unobserve(video);
         }
       });
     },
     {
-      threshold: [0, 0.4, 1],
-      rootMargin: "0px 0px -5% 0px"
+      threshold: [0, 0.05],
+      rootMargin: "0px 0px 15% 0px"
     }
   );
 
@@ -118,11 +122,6 @@ function iniciarVideoAnillo() {
     () => {
       video.pause();
 
-      /*
-        Conserva el último fotograma,
-        incluso en navegadores que vuelven
-        al fotograma inicial.
-      */
       if (
         Number.isFinite(video.duration) &&
         video.duration > 0.05
@@ -758,6 +757,9 @@ function prepararAnimacionesDeEntrada() {
     ".cloudbig",
     "reveal-scale reveal-float"
   );
+
+  agregar(".rosas-final");
+  agregar(".teesperamos");
 
   document
     .querySelectorAll(".evento")
