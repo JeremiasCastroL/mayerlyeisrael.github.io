@@ -211,10 +211,54 @@ h1 {
     width: 100%;
     height: 550px;
     display: flex;
+    background-color: #fff !important;
     justify-content: center;
     align-items: center;
     margin: auto;
     overflow: hidden;
+}
+
+.rosas-final {
+    margin-top: 120px;
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+}
+
+/* Aparición suave de las flores finales */
+.rosas-final.reveal-item {
+    opacity: 0;
+    transform: translateY(35px);
+    transition:
+        opacity 1.1s ease,
+        transform 1.1s ease;
+}
+
+.rosas-final.reveal-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.teesperamos {
+    position: absolute;
+    bottom: 53px;
+    font-family: "Roboto Slab", serif;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+/* Aparición suave del texto “¡Te esperamos!” */
+.teesperamos.reveal-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.9s ease 0.2s,
+        transform 0.9s ease 0.2s;
+}
+
+.teesperamos.reveal-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .caja-video video {
